@@ -8,6 +8,10 @@ PREFIX=$1
 # Get script directory
 MY_DIR=$(dirname "${BASH_SOURCE[0]}")
 
+# Make dynamic linker find libpython3*.so
+echo ${PREFIX}/lib >> /etc/ld.so.conf.d/00-manylinux.conf
+ldconfig
+
 # Some python's install as bin/python3. Make them available as
 # bin/python.
 if [ -e ${PREFIX}/bin/python3 ] && [ ! -e ${PREFIX}/bin/python ]; then
